@@ -1,24 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import UserInput from './UserInput/UserInput';
+import UserOutput from './UserOutput/UserOutput';
 
 function App() {
+  const [userState, setUserState] = useState({
+    users: [
+      {
+        username: 'BloodyLink'
+      },
+      {
+        username: 'David-Redfield'
+      },
+      {
+        username: 'DvdSage'
+      }
+    ]
+  });
+
+  const switchUserHandler = (event) => {
+    setUserState(
+      {
+        users: [
+          {
+            username: 'BloodyLink'
+          },
+          {
+            username: event.target.value
+          },
+          {
+            username: 'DvdSage'
+          }
+        ]
+      }
+    )
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <UserInput changed={switchUserHandler} username={userState.users[1].username}/>
+      <UserOutput number='1' username={userState.users[0].username}/>
+      <UserOutput number='2' username={userState.users[1].username}/>
+      <UserOutput number='3' username={userState.users[2].username}/>
     </div>
   );
 }
